@@ -6,6 +6,9 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md,css}\"",
     "prepare": "husky",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "precheck": "turbo run lint typecheck test build",
     "changeset": "changeset",
     "version-packages": "changeset version"
   },

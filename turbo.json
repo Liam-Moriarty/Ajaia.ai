@@ -1,12 +1,19 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "tasks": {
+    "lint": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "test": {
+      "dependsOn": ["^test", "typecheck"]
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "typecheck", "test"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
-    "lint": {},
+
     "dev": {
       "cache": false,
       "persistent": true
