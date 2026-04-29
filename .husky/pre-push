@@ -1,0 +1,16 @@
+
+
+echo "🚀 Running pre-push checks..."
+
+# Get the current branch
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+echo "📦 Branch: $BRANCH"
+
+# Run tests only on packages affected by changes
+pnpm turbo run test --filter=[HEAD^1]
+
+# Run type-check on affected packages
+pnpm turbo run typecheck --filter=[HEAD^1]
+
+echo "✅ Pre-push checks passed!"
