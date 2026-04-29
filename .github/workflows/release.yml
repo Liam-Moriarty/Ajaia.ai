@@ -27,13 +27,11 @@ jobs:
       - name: Build packages
         run: pnpm turbo run build
 
-      - name: Create Release PR or Publish
+      - name: Create Version PR
         uses: changesets/action@v1
         with:
-          publish: pnpm changeset publish
           version: pnpm changeset version
           commit: 'chore: release packages'
           title: 'chore: release packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
