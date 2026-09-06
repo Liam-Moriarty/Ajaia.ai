@@ -6,7 +6,7 @@ See `docs/PDD.md` (product design) and `docs/TDD.md` (technical design) for the 
 
 ## Live deployment
 
-**TODO: add the live Vercel URL here before final submission.** The Vercel project is set up (Vercel is the deployment target, see "Stack" below) but has not been deployed to a public URL yet.
+**https://ajaia-ai-web-git-main-fernando-ordiales-projects.vercel.app/**
 
 No test account is required — sign-up works with any email/password (see "Local setup" below for disabling email confirmation), or a reviewer can create two accounts to exercise the sharing flow.
 

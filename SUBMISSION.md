@@ -12,9 +12,12 @@ Ajaia Full Stack Product Engineer take-home — collaborative document editor.
 - **`docs/ai-workflow-note.md`** — AI tools used, where they sped things up, what was changed/rejected, how correctness was verified.
 - **This file (`SUBMISSION.md`)**.
 
+## Live deployment
+
+**https://ajaia-ai-web-git-main-fernando-ordiales-projects.vercel.app/**
+
 ## Not included in this repository (add before final submission)
 
-- **Live deployment URL** — Vercel project is linked; confirm the deployed URL after pushing this branch and add it here.
 - **Walkthrough video** — 3-5 minute recording covering the main user flow, what works end to end, what was deprioritized, and how AI supported the workflow. Add the URL (Loom/YouTube unlisted) in a plain text file alongside this one, per the assessment's submission format.
 - **Test account credentials / seeded users**, if you want reviewers to skip signing up two accounts themselves to exercise sharing.
 - **Screenshots or a demo GIF**, only if any setup step needs more than what's in the README.
