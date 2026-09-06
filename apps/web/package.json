@@ -7,14 +7,20 @@
     "dev": "vite --clearScreen false",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "@repo/ui": "file:..\\..\\packages\\ui\\repo-ui-0.0.0.tgz",
+    "@repo/ui": "workspace:*",
+    "@supabase/supabase-js": "^2.45.4",
+    "@tiptap/extension-underline": "^2.9.1",
+    "@tiptap/pm": "^2.9.1",
+    "@tiptap/react": "^2.9.1",
+    "@tiptap/starter-kit": "^2.9.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

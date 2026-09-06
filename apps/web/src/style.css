@@ -1,97 +1,136 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
+  font-family: system-ui, sans-serif;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 900px;
   padding: 2rem;
-  text-align: center;
+  margin-inline: auto;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+.error {
+  color: #d33;
 }
 
-.card {
-  padding: 2em;
+.success {
+  color: #2a2;
 }
 
-.read-the-docs {
-  color: #888;
+.auth-page form,
+.dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 320px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.auth-page label,
+.dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #06c;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  padding: 0;
+  margin-top: 1rem;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.document-list-page header,
+.document-editor-page header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.document-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  text-align: left;
+}
+
+.document-card-title {
+  font-weight: 600;
+}
+
+.document-card-meta {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.title-input {
+  font-size: 1.5rem;
+  font-weight: 600;
+  border: none;
+  flex: 1;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.25rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.editor-toolbar button.active {
+  background: #ddd;
+}
+
+.editor-content {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+}
+
+.editor-content :focus {
+  outline: none;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog {
+  background: canvas;
+  color: canvastext;
+  padding: 1.5rem;
+  border-radius: 8px;
+  min-width: 300px;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 0.5rem;
 }

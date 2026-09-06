@@ -1,23 +1,34 @@
-import typescriptLogo from '/typescript.svg';
-import { Header, Counter } from '@repo/ui';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './hooks/useAuth';
+import { RequireAuth } from './components/RequireAuth';
+import { LoginPage } from './pages/LoginPage';
+import { DocumentListPage } from './pages/DocumentListPage';
+import { DocumentEditorPage } from './pages/DocumentEditorPage';
 
 export const App = () => {
   return (
-    <div>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" className="logo" alt="Vite logo" />
-      </a>
-      <a href="https://www.typescriptlang.org/" target="_blank">
-        <img
-          src={typescriptLogo}
-          className="logo vanilla"
-          alt="TypeScript logo"
-        />
-      </a>
-      <Header title="Web" />
-      <div className="card">
-        <Counter />
-      </div>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <DocumentListPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/documents/:id"
+            element={
+              <RequireAuth>
+                <DocumentEditorPage />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
