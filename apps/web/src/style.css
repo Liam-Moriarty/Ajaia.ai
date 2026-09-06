@@ -108,6 +108,11 @@ input[type='text'] {
   font-size: 0.9rem;
 }
 
+.hint {
+  color: var(--muted, #6b7280);
+  font-size: 0.85rem;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;

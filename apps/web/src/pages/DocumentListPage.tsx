@@ -5,7 +5,12 @@ import { useDocuments } from '../hooks/useDocuments';
 import { DocumentCard } from '../components/DocumentCard';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { ConfirmDialog } from '../components/ConfirmDialog';
-import { isSupportedImportFile, parseImport } from '../lib/parseImport';
+import {
+  extractText,
+  isSupportedImportFile,
+  parseImport,
+  SUPPORTED_IMPORT_EXTENSIONS,
+} from '../lib/parseImport';
 import type { DocumentRow } from '../lib/types';
 
 export function DocumentListPage() {
@@ -37,16 +42,22 @@ export function DocumentListPage() {
     setImportError(null);
     if (!isSupportedImportFile(file.name)) {
       setImportError(
-        'Unsupported file type. Only .txt and .md files can be imported.'
+        `Unsupported file type. Allowed: ${SUPPORTED_IMPORT_EXTENSIONS.join(', ')}. Not allowed: any other format (e.g. .doc, .rtf, .odt, images).`
       );
       return;
     }
 
-    const text = await file.text();
-    const content = parseImport(file.name, text);
-    const title = file.name.replace(/\.(txt|md)$/i, '');
-    const id = await importDocument(title, content);
-    navigate(`/documents/${id}`);
+    try {
+      const text = await extractText(file);
+      const content = parseImport(file.name, text);
+      const title = file.name.replace(/\.(txt|md|pdf|docx)$/i, '');
+      const id = await importDocument(title, content);
+      navigate(`/documents/${id}`);
+    } catch {
+      setImportError(
+        'Could not read that file. Please check it is not corrupted and try again.'
+      );
+    }
   }
 
   return (
@@ -61,7 +72,7 @@ export function DocumentListPage() {
           <input
             ref={fileInput}
             type="file"
-            accept=".txt,.md"
+            accept={SUPPORTED_IMPORT_EXTENSIONS.join(',')}
             hidden
             onChange={handleFileChange}
           />
@@ -70,6 +81,10 @@ export function DocumentListPage() {
         </div>
       </header>
 
+      <p className="hint">
+        Allowed file types: {SUPPORTED_IMPORT_EXTENSIONS.join(', ')}. Other
+        formats (e.g. .doc, .rtf, .odt, images) are not supported.
+      </p>
       {importError && <p className="error">{importError}</p>}
       {error && <p className="error">{error}</p>}
       {loading && <p className="empty-state">Loading...</p>}
