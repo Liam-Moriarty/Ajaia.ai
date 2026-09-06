@@ -17,6 +17,14 @@ describe('isSupportedImportFile', () => {
   });
 });
 
+describe('parseImport - unsupported files', () => {
+  it('throws a descriptive error for an unsupported extension', () => {
+    expect(() => parseImport('archive.zip', 'anything')).toThrow(
+      /Unsupported file type/
+    );
+  });
+});
+
 describe('parseImport - plain text', () => {
   it('wraps each non-blank line as its own paragraph', () => {
     const doc = parseImport('notes.txt', 'first line\nsecond line');
@@ -123,6 +131,31 @@ describe('parseImport - markdown', () => {
             type: 'listItem',
             content: [
               { type: 'paragraph', content: [{ type: 'text', text: 'two' }] },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  it('preserves a non-1 starting number for numbered lists', () => {
+    const doc = parseImport('doc.md', '5. five\n6. six');
+
+    expect(doc.content).toEqual([
+      {
+        type: 'orderedList',
+        attrs: { start: 5 },
+        content: [
+          {
+            type: 'listItem',
+            content: [
+              { type: 'paragraph', content: [{ type: 'text', text: 'five' }] },
+            ],
+          },
+          {
+            type: 'listItem',
+            content: [
+              { type: 'paragraph', content: [{ type: 'text', text: 'six' }] },
             ],
           },
         ],
