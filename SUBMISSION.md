@@ -2,6 +2,14 @@
 
 Ajaia Full Stack Product Engineer take-home — collaborative document editor.
 
+## Live deployment
+
+**https://ajaia-ai-web.vercel.app/**
+
+## Repository
+
+**https://github.com/Liam-Moriarty/Ajaia.ai**
+
 ## Included in this repository
 
 - **Source code** — `apps/web` (the product; React + TypeScript + Vite), `supabase/migrations/0001_init.sql` (schema + RLS policies). `apps/server` is an unused stub, intentionally not built on (see `docs/TDD.md`).
@@ -12,11 +20,7 @@ Ajaia Full Stack Product Engineer take-home — collaborative document editor.
 - **`docs/ai-workflow-note.md`** — AI tools used, where they sped things up, what was changed/rejected, how correctness was verified.
 - **This file (`SUBMISSION.md`)**.
 
-## Live deployment
-
-**https://ajaia-ai-web.vercel.app/**
-
-## Not included in this repository (add before final submission)
+## Not included in this repository
 
 - **Walkthrough video** — 3-5 minute recording covering the main user flow, what works end to end, what was deprioritized, and how AI supported the workflow. Add the URL (Loom/YouTube unlisted) in a plain text file alongside this one, per the assessment's submission format.
 - **Test account credentials / seeded users**, if you want reviewers to skip signing up two accounts themselves to exercise sharing.
