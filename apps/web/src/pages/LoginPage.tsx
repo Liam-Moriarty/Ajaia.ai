@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export function LoginPage() {
   const { user, signIn, signUp } = useAuth();
@@ -31,6 +32,9 @@ export function LoginPage() {
 
   return (
     <div className="auth-page">
+      <div className="auth-page-toggle">
+        <ThemeToggle />
+      </div>
       <h1>{mode === 'sign-in' ? 'Sign in' : 'Sign up'}</h1>
       <form onSubmit={handleSubmit}>
         <label>

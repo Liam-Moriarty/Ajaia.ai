@@ -130,9 +130,16 @@ input[type='text'] {
 /* Auth page */
 
 .auth-page {
+  position: relative;
   max-width: 340px;
   margin: 12vh auto 0;
   padding: 0 1.5rem;
+}
+
+.auth-page-toggle {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
 }
 
 .auth-page h1 {
