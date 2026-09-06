@@ -1,8 +1,14 @@
 # Collaborative Document Editor
 
-A lightweight, Google Docs-inspired document editor built for Ajaia's Full Stack Product Engineer take-home assessment. Users sign up, create and format rich-text documents, import `.txt`/`.md` files as new documents, and share documents with other users by email.
+A lightweight, Google Docs-inspired document editor built for Ajaia's Full Stack Product Engineer take-home assessment. Users sign up, create and format rich-text documents, import `.txt`/`.md`/`.pdf`/`.docx` files as new documents, and share documents with other users by email.
 
 See `docs/PDD.md` (product design) and `docs/TDD.md` (technical design) for the full design rationale, and `docs/architecture-note.md` / `docs/ai-workflow-note.md` for the condensed writeups required by the assessment.
+
+## Live deployment
+
+**TODO: add the live Vercel URL here before final submission.** The Vercel project is set up (Vercel is the deployment target, see "Stack" below) but has not been deployed to a public URL yet.
+
+No test account is required — sign-up works with any email/password (see "Local setup" below for disabling email confirmation), or a reviewer can create two accounts to exercise the sharing flow.
 
 ## Stack
 
@@ -43,11 +49,18 @@ pnpm --filter web typecheck
 pnpm --filter web lint
 ```
 
-The one automated test covers `apps/web/src/lib/parseImport.ts` — the `.txt`/`.md` → Tiptap-JSON conversion, which is the highest-risk hand-written logic in the app.
+The automated tests cover `apps/web/src/lib/parseImport.ts` — the `.txt`/`.md` → Tiptap-JSON conversion, which is the highest-risk hand-written logic in the app (PDF/DOCX extraction delegates to `pdfjs-dist`/`mammoth` and isn't separately unit tested) — plus `apps/web/src/lib/formatUpdatedAt.ts`'s relative-timestamp formatting.
 
 ## Supported file imports
 
-Only `.txt` and `.md` files can be imported as new documents. Any other file type is rejected client-side with an explicit error message. The original uploaded file is not retained — only its parsed content is saved as a new document.
+Only `.txt`, `.md`, `.pdf`, and `.docx` files can be imported as new documents (`.pdf` via `pdfjs-dist`, `.docx` via `mammoth`, both parsed client-side). Any other file type (e.g. `.doc`, `.rtf`, `.odt`, images) is rejected before upload with an explicit error message, both in the file picker's `accept` filter and in a validation check on the selected file. The original uploaded file is not retained — only its parsed content is saved as a new document.
+
+## Validation and error handling
+
+- **Import**: file type is checked against the supported-extension allowlist before parsing (`apps/web/src/lib/parseImport.ts`), with a matching pre-check in the UI (`apps/web/src/pages/DocumentListPage.tsx`) that surfaces a specific error message before any upload happens. Parsing failures (corrupt/unreadable files) are caught and shown as a user-facing error rather than failing silently.
+- **Auth**: sign-in/sign-up forms use HTML5 `required` fields and a minimum password length; Supabase auth errors (e.g. wrong password, existing account) are caught and rendered inline on the form.
+- **Sharing**: the share dialog distinguishes "no user found for that email" from "already shared with this user" (a Postgres unique-constraint violation) and shows a specific message for each, rather than a generic failure.
+- **Data loading/saving**: document list and document editor hooks track a Supabase query/save error in state and render it inline instead of leaving the UI in a stuck loading state; documents show explicit "No documents yet." / "Nothing shared with you yet." empty states rather than a blank list.
 
 ## Sharing
 
@@ -55,4 +68,4 @@ Share a document with another registered user by entering their email in the edi
 
 ## What's out of scope
 
-Real-time multi-cursor collaboration, view-only vs. edit permission tiers, `.docx` import, comments/suggestion mode, version history, and PDF export are all explicitly deprioritized — see `docs/TDD.md` for the full list and reasoning.
+Real-time multi-cursor collaboration, view-only vs. edit permission tiers, comments/suggestion mode, version history, and PDF export are all explicitly deprioritized — see `docs/TDD.md` for the full list and reasoning.

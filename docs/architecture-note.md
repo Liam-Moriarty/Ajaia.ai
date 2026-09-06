@@ -7,7 +7,7 @@ Condensed from `docs/TDD.md` — see that document for the full data model, RLS 
 A React + TypeScript + Vite single-page app (`apps/web`) talking directly to Supabase (Postgres + Auth) — no custom backend. Postgres Row Level Security is the authorization boundary, not a hand-rolled API layer.
 
 - **Editing**: Tiptap (ProseMirror) for bold/italic/underline/headings/bulleted+numbered lists, autosaved to Postgres on a ~1s debounce.
-- **Import**: `.txt`/`.md` files are parsed client-side into Tiptap's JSON document format and inserted as new documents. Other file types are rejected with an explicit message.
+- **Import**: `.txt`/`.md`/`.pdf`/`.docx` files are parsed client-side (`pdfjs-dist` for PDF, `mammoth` for `.docx`) into Tiptap's JSON document format and inserted as new documents. Other file types are rejected with an explicit message.
 - **Sharing**: entering a collaborator's email resolves it to a `profiles` row and inserts a `document_shares` row; RLS grants that user read/update access on their next query. The document list shows "My documents" and "Shared with me" as visibly separate sections.
 - **Auth**: Supabase email/password, gating all document routes behind a route guard that redirects to `/login`.
 
@@ -21,7 +21,7 @@ A React + TypeScript + Vite single-page app (`apps/web`) talking directly to Sup
 
 ## Deliberate scope cuts
 
-Real-time multi-cursor collaboration, view-only vs. edit permission tiers, `.docx` import, comments/suggestion mode, version history, and PDF export were all explicitly deprioritized — none were required by the assessment brief, and each would have traded core-feature depth for breadth.
+Real-time multi-cursor collaboration, view-only vs. edit permission tiers, comments/suggestion mode, version history, and PDF export were all explicitly deprioritized — none were required by the assessment brief, and each would have traded core-feature depth for breadth.
 
 ## What's incomplete / what I'd build next with 2-4 more hours
 

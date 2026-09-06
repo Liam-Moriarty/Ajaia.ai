@@ -21,7 +21,7 @@ Ajaia Full Stack Product Engineer take-home — collaborative document editor.
 
 ## What's working
 
-Sign-up/sign-in, document create/rename/edit with autosave, bold/italic/underline/headings/bulleted+numbered lists, `.txt`/`.md` import as a new document, and email-based sharing with a visible owned-vs-shared distinction that persists across refresh and re-login — enforced at the data layer via Postgres RLS, not just hidden in the UI.
+Sign-up/sign-in, document create/rename/edit with autosave, bold/italic/underline/headings/bulleted+numbered lists, `.txt`/`.md`/`.pdf`/`.docx` import as a new document, and email-based sharing with a visible owned-vs-shared distinction that persists across refresh and re-login — enforced at the data layer via Postgres RLS, not just hidden in the UI.
 
 ## What's incomplete
 
