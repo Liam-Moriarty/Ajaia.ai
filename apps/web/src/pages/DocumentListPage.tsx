@@ -3,15 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useDocuments } from '../hooks/useDocuments';
 import { DocumentCard } from '../components/DocumentCard';
+import { ThemeToggle } from '../components/ThemeToggle';
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { isSupportedImportFile, parseImport } from '../lib/parseImport';
+import type { DocumentRow } from '../lib/types';
 
 export function DocumentListPage() {
   const { signOut } = useAuth();
-  const { owned, shared, loading, error, createDocument, importDocument } =
-    useDocuments();
+  const {
+    owned,
+    shared,
+    loading,
+    error,
+    createDocument,
+    importDocument,
+    deleteDocument,
+  } = useDocuments();
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
   const [importError, setImportError] = useState<string | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<DocumentRow | null>(null);
 
   async function handleCreate() {
     const id = await createDocument();
@@ -55,21 +66,26 @@ export function DocumentListPage() {
             onChange={handleFileChange}
           />
           <button onClick={signOut}>Sign out</button>
+          <ThemeToggle />
         </div>
       </header>
 
       {importError && <p className="error">{importError}</p>}
       {error && <p className="error">{error}</p>}
-      {loading && <p>Loading...</p>}
+      {loading && <p className="empty-state">Loading...</p>}
 
       <section>
         <h2>My documents</h2>
         {owned.length === 0 && !loading ? (
-          <p>No documents yet.</p>
+          <p className="empty-state">No documents yet.</p>
         ) : (
-          <div className="document-grid">
+          <div className="document-list">
             {owned.map((doc) => (
-              <DocumentCard key={doc.id} document={doc} />
+              <DocumentCard
+                key={doc.id}
+                document={doc}
+                onDelete={() => setPendingDelete(doc)}
+              />
             ))}
           </div>
         )}
@@ -78,15 +94,29 @@ export function DocumentListPage() {
       <section>
         <h2>Shared with me</h2>
         {shared.length === 0 && !loading ? (
-          <p>Nothing shared with you yet.</p>
+          <p className="empty-state">Nothing shared with you yet.</p>
         ) : (
-          <div className="document-grid">
+          <div className="document-list">
             {shared.map((doc) => (
               <DocumentCard key={doc.id} document={doc} />
             ))}
           </div>
         )}
       </section>
+
+      {pendingDelete && (
+        <ConfirmDialog
+          title="Delete document"
+          message={`Delete "${pendingDelete.title || 'Untitled'}"? This can't be undone.`}
+          confirmLabel="Delete"
+          danger
+          onCancel={() => setPendingDelete(null)}
+          onConfirm={async () => {
+            await deleteDocument(pendingDelete.id);
+            setPendingDelete(null);
+          }}
+        />
+      )}
     </div>
   );
 }

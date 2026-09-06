@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import { useDocument } from '../hooks/useDocument';
 import { EditorToolbar } from '../components/EditorToolbar';
 import { ShareDialog } from '../components/ShareDialog';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export function DocumentEditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,12 +32,15 @@ export function DocumentEditorPage() {
     }
   }, [editor, document?.id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="page-loading">Loading...</p>;
   if (error) return <p className="error">{error}</p>;
   if (!document || !editor) return null;
 
   return (
     <div className="document-editor-page">
+      <Link to="/" className="back-link">
+        ← Documents
+      </Link>
       <header>
         <input
           className="title-input"
@@ -46,7 +50,10 @@ export function DocumentEditorPage() {
             save({ title: e.target.value });
           }}
         />
-        <button onClick={() => setShareOpen(true)}>Share</button>
+        <div className="actions">
+          <button onClick={() => setShareOpen(true)}>Share</button>
+          <ThemeToggle />
+        </div>
       </header>
 
       {saveError && <p className="error">Failed to save: {saveError}</p>}

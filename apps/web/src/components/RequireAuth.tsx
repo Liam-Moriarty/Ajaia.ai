@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 export function RequireAuth({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="page-loading">Loading...</p>;
   if (!user) return <Navigate to="/login" replace />;
 
   return <>{children}</>;

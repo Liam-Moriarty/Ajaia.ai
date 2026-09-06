@@ -21,18 +21,20 @@ export function EditorToolbar({ editor }: { editor: Editor }) {
       >
         Underline
       </button>
+      <span className="editor-toolbar-divider" />
       <button
         className={editor.isActive('heading', { level: 1 }) ? 'active' : ''}
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
       >
-        H1
+        Heading 1
       </button>
       <button
         className={editor.isActive('heading', { level: 2 }) ? 'active' : ''}
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
       >
-        H2
+        Heading 2
       </button>
+      <span className="editor-toolbar-divider" />
       <button
         className={editor.isActive('bulletList') ? 'active' : ''}
         onClick={() => editor.chain().focus().toggleBulletList().run()}

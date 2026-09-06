@@ -73,6 +73,15 @@ export function useDocuments() {
     return data.id as string;
   }
 
+  async function deleteDocument(id: string): Promise<void> {
+    const { error: deleteError } = await supabase
+      .from('documents')
+      .delete()
+      .eq('id', id);
+    if (deleteError) throw deleteError;
+    setOwned((docs) => docs.filter((doc) => doc.id !== id));
+  }
+
   return {
     owned,
     shared,
@@ -80,6 +89,7 @@ export function useDocuments() {
     error,
     createDocument,
     importDocument,
+    deleteDocument,
     reload: load,
   };
 }
