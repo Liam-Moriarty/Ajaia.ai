@@ -2,11 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { parseImport, isSupportedImportFile } from './parseImport';
 
 describe('isSupportedImportFile', () => {
-  it('accepts .txt, .md, .pdf, and .docx filenames', () => {
+  it('accepts .txt, .md, and .docx filenames', () => {
     expect(isSupportedImportFile('notes.txt')).toBe(true);
     expect(isSupportedImportFile('README.md')).toBe(true);
     expect(isSupportedImportFile('NOTES.TXT')).toBe(true);
-    expect(isSupportedImportFile('report.pdf')).toBe(true);
     expect(isSupportedImportFile('resume.docx')).toBe(true);
   });
 
@@ -14,6 +13,7 @@ describe('isSupportedImportFile', () => {
     expect(isSupportedImportFile('resume.doc')).toBe(false);
     expect(isSupportedImportFile('image.png')).toBe(false);
     expect(isSupportedImportFile('noextension')).toBe(false);
+    expect(isSupportedImportFile('report.pdf')).toBe(false);
   });
 });
 

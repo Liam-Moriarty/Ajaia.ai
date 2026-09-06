@@ -50,7 +50,7 @@ export function DocumentListPage() {
     try {
       const text = await extractText(file);
       const content = parseImport(file.name, text);
-      const title = file.name.replace(/\.(txt|md|pdf|docx)$/i, '');
+      const title = file.name.replace(/\.(txt|md|docx)$/i, '');
       const id = await importDocument(title, content);
       navigate(`/documents/${id}`);
     } catch {

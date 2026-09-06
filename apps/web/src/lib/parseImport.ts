@@ -1,18 +1,7 @@
-import * as pdfjsLib from 'pdfjs-dist';
 import mammoth from 'mammoth';
 import type { TiptapDocument } from './types';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
-
-export const SUPPORTED_IMPORT_EXTENSIONS = [
-  '.txt',
-  '.md',
-  '.pdf',
-  '.docx',
-] as const;
+export const SUPPORTED_IMPORT_EXTENSIONS = ['.txt', '.md', '.docx'] as const;
 
 export function isSupportedImportFile(filename: string): boolean {
   const lower = filename.toLowerCase();
@@ -22,35 +11,11 @@ export function isSupportedImportFile(filename: string): boolean {
 export async function extractText(file: File): Promise<string> {
   const lower = file.name.toLowerCase();
 
-  if (lower.endsWith('.pdf')) {
-    return extractPdfText(file);
-  }
-
   if (lower.endsWith('.docx')) {
     return extractDocxText(file);
   }
 
   return file.text();
-}
-
-async function extractPdfText(file: File): Promise<string> {
-  const buffer = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
-  const pages: string[] = [];
-
-  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-    const page = await pdf.getPage(pageNumber);
-    const textContent = await page.getTextContent();
-    let pageText = '';
-    for (const item of textContent.items) {
-      if (!('str' in item)) continue;
-      pageText += item.str;
-      if (item.hasEOL) pageText += '\n';
-    }
-    pages.push(pageText);
-  }
-
-  return pages.join('\n\n');
 }
 
 async function extractDocxText(file: File): Promise<string> {

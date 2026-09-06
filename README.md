@@ -1,6 +1,6 @@
 # Collaborative Document Editor
 
-A lightweight, Google Docs-inspired document editor built for Ajaia's Full Stack Product Engineer take-home assessment. Users sign up, create and format rich-text documents, import `.txt`/`.md`/`.pdf`/`.docx` files as new documents, and share documents with other users by email.
+A lightweight, Google Docs-inspired document editor built for Ajaia's Full Stack Product Engineer take-home assessment. Users sign up, create and format rich-text documents, import `.txt`/`.md`/`.docx` files as new documents, and share documents with other users by email.
 
 See `docs/PDD.md` (product design) and `docs/TDD.md` (technical design) for the full design rationale, and `docs/architecture-note.md` / `docs/ai-workflow-note.md` for the condensed writeups required by the assessment.
 
@@ -49,11 +49,11 @@ pnpm --filter web typecheck
 pnpm --filter web lint
 ```
 
-The automated tests cover `apps/web/src/lib/parseImport.ts` — the `.txt`/`.md` → Tiptap-JSON conversion, which is the highest-risk hand-written logic in the app (PDF/DOCX extraction delegates to `pdfjs-dist`/`mammoth` and isn't separately unit tested) — plus `apps/web/src/lib/formatUpdatedAt.ts`'s relative-timestamp formatting.
+The automated tests cover `apps/web/src/lib/parseImport.ts` — the `.txt`/`.md` → Tiptap-JSON conversion, which is the highest-risk hand-written logic in the app (DOCX extraction delegates to `mammoth` and isn't separately unit tested) — plus `apps/web/src/lib/formatUpdatedAt.ts`'s relative-timestamp formatting.
 
 ## Supported file imports
 
-Only `.txt`, `.md`, `.pdf`, and `.docx` files can be imported as new documents (`.pdf` via `pdfjs-dist`, `.docx` via `mammoth`, both parsed client-side). Any other file type (e.g. `.doc`, `.rtf`, `.odt`, images) is rejected before upload with an explicit error message, both in the file picker's `accept` filter and in a validation check on the selected file. The original uploaded file is not retained — only its parsed content is saved as a new document.
+Only `.txt`, `.md`, and `.docx` files can be imported as new documents (`.docx` via `mammoth`, parsed client-side). Any other file type (e.g. `.doc`, `.pdf`, `.rtf`, `.odt`, images) is rejected before upload with an explicit error message, both in the file picker's `accept` filter and in a validation check on the selected file. The original uploaded file is not retained — only its parsed content is saved as a new document.
 
 ## Validation and error handling
 

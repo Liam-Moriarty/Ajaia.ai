@@ -7,7 +7,7 @@ Condensed from `docs/TDD.md` — see that document for the full data model, RLS 
 A React + TypeScript + Vite single-page app (`apps/web`) talking directly to Supabase (Postgres + Auth) — no custom backend. Postgres Row Level Security is the authorization boundary, not a hand-rolled API layer.
 
 - **Editing**: Tiptap (ProseMirror) for bold/italic/underline/headings/bulleted+numbered lists, autosaved to Postgres on a ~1s debounce.
-- **Import**: `.txt`/`.md`/`.pdf`/`.docx` files are parsed client-side (`pdfjs-dist` for PDF, `mammoth` for `.docx`) into Tiptap's JSON document format and inserted as new documents. Other file types are rejected with an explicit message.
+- **Import**: `.txt`/`.md`/`.docx` files are parsed client-side (`mammoth` for `.docx`) into Tiptap's JSON document format and inserted as new documents. Other file types are rejected with an explicit message.
 - **Sharing**: entering a collaborator's email resolves it to a `profiles` row and inserts a `document_shares` row; RLS grants that user read/update access on their next query. The document list shows "My documents" and "Shared with me" as visibly separate sections.
 - **Auth**: Supabase email/password, gating all document routes behind a route guard that redirects to `/login`.
 
