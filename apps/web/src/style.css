@@ -213,6 +213,10 @@ input[type='text'] {
   gap: 0.5rem;
 }
 
+.actions button {
+  white-space: nowrap;
+}
+
 .document-list-page section + section {
   margin-top: 2.5rem;
 }
