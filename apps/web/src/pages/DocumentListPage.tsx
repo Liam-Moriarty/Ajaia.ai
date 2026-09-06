@@ -14,7 +14,7 @@ import {
 import type { DocumentRow } from '../lib/types';
 
 export function DocumentListPage() {
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const {
     owned,
     shared,
@@ -63,7 +63,12 @@ export function DocumentListPage() {
   return (
     <div className="document-list-page">
       <header>
-        <h1>Documents</h1>
+        <div>
+          <h1>Documents</h1>
+          {user?.email && (
+            <p className="signed-in-as">Signed in as {user.email}</p>
+          )}
+        </div>
         <div className="actions">
           <button onClick={handleCreate}>New document</button>
           <button onClick={() => fileInput.current?.click()}>
