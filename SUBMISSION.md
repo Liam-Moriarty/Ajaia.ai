@@ -14,7 +14,7 @@ Ajaia Full Stack Product Engineer take-home — collaborative document editor.
 
 ## Live deployment
 
-**https://ajaia-ai-web-git-main-fernando-ordiales-projects.vercel.app/**
+**https://ajaia-ai-web.vercel.app/**
 
 ## Not included in this repository (add before final submission)
 

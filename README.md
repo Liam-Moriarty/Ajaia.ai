@@ -6,7 +6,7 @@ See `docs/PDD.md` (product design) and `docs/TDD.md` (technical design) for the 
 
 ## Live deployment
 
-**https://ajaia-ai-web-git-main-fernando-ordiales-projects.vercel.app/**
+**https://ajaia-ai-web.vercel.app/**
 
 No test account is required — sign-up works with any email/password (see "Local setup" below for disabling email confirmation), or a reviewer can create two accounts to exercise the sharing flow.
 
