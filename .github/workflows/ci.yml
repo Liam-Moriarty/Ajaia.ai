@@ -35,6 +35,3 @@ jobs:
 
       - name: Test
         run: pnpm turbo run test
-
-      - name: Publish
-        run: pnpm turbo run publish
